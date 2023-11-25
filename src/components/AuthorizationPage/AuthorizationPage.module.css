@@ -1,0 +1,43 @@
+.authWrapper {
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authBlock {
+  width: 22.5vw;
+  height: 32.5vh;
+  min-width: 320px;
+  min-height: 160px;
+  background-color: white;
+  border-radius: 30px;
+  border: 1px solid #1890FF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+.authHeader {
+  color: #1890FF;
+  margin-bottom: 35px;
+}
+
+.authInputLogin {
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.authInputPassword {
+  width: 80%;
+  margin-bottom: 50px;
+}
+
+.authButton {
+  min-width: 70px;
+  min-height: 40px;
+  width: 20%;
+  background-color: #1890FF;
+}
