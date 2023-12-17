@@ -31,14 +31,21 @@ class LimitedUserViewSet(viewsets.ModelViewSet):
         return super(self.__class__, self).get_permissions()
 
 
-class TrainingOfDayView(generics.ListAPIView):
+class TrainingListView(generics.ListAPIView):
+
     def get(self, request, *args, **kwargs):
-        trainings = Training.objects.filter(date=kwargs['date'])
+        trainings = Training.objects.all()
+        params = request.query_params
+        if 'date_from' in params:
+            trainings = trainings.filter(date__gte=params['date_from'])
+        if 'date_to' in params:
+            trainings = trainings.filter(date__lte=params['date_to'])
         serializer = TrainingSerializer(trainings, many=True)
         return Response(serializer.data)
 
 
 class TrainingViewSet(viewsets.ModelViewSet):
+
     permission_classes = (permissions.IsAdminUser, )
     queryset = Training.objects.all()
     serializer_class = TrainingSerializer
@@ -71,7 +78,6 @@ class MyAttendancesView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         attendances = Attendance.objects.filter(user=request.user)
         params = request.query_params
-        print(params)
         if 'date_from' in params:
             attendances = attendances.filter(date__gte=params['date_from'])
         if 'date_to' in params:
@@ -84,10 +90,10 @@ class UserAttendancesView(generics.ListAPIView):
     queryset = Attendance.objects.all()
     permission_classes = (permissions.IsAdminUser, )
 
+
     def get(self, request, *args, **kwargs):
         attendances = Attendance.objects.filter(user=kwargs['user_pk'])
         params = request.query_params
-        print(params)
         if 'date_from' in params:
             attendances = attendances.filter(date__gte=params['date_from'])
         if 'date_to' in params:
