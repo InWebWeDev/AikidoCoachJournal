@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractUser, Group
 class User(AbstractUser):
     phone_number = models.BigIntegerField(null=True, verbose_name='Номер телефона')
     third_name = models.CharField(max_length=100, verbose_name='Отчество', blank=True)
+    birth_date = models.DateField(null=True)
 
 
 class Training(models.Model):
@@ -22,3 +23,4 @@ class Attendance(models.Model):
     user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
     training = models.ForeignKey(Training, related_name='training', on_delete=models.CASCADE)
     is_paid = models.BooleanField()
+    date = models.DateField(null=True)
