@@ -41,3 +41,11 @@ class AttendanceSerializer(serializers.ModelSerializer):
         attendance = Attendance.objects.create(date=training.date, **validated_data)
         return attendance
 
+
+class GroupSerializer(serializers.ModelSerializer):
+    users = LimitedUserSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Group
+        fields = ['id', 'name', 'users', 'permissions']
+
