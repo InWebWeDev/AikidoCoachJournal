@@ -1,0 +1,35 @@
+.scheduleContainer {
+  width: calc(100% - 64px);
+  height: calc(100vh - 46px);
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  gap: 16px;
+}
+
+.scheduleContainer > div {
+  background-color: white;
+}
+
+.groupContainer {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(13, 7.69%);
+  font-weight: 400px;
+  font-size: 14px;
+}
+
+.groupContainer > div {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.groupContainer > div img {
+  margin-right: 16px;
+}
+
+.paymentStatus {
+  margin-left: auto;
+  color: #00A40773;
+}

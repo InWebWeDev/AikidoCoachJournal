@@ -1,0 +1,34 @@
+.dateContainer {
+  width: 100%;
+  height: 56px;
+}
+
+.scheduleContainer {
+  width: calc(100% - 96px);
+  height: calc(100vh - 111px);
+  display: grid;
+  grid-template-columns: repeat(7, 14.28%);
+  gap: 16px;
+}
+
+.scheduleContainer > div {
+  background-color: white;
+}
+
+.scheduleDayContainer {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 23px repeat(12, 7.69%);
+  cursor: pointer;
+}
+
+.scheduleDayContainer div {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 8px;
+  border-top: 2px solid #1890FF;
+}
+
+.dayDate {
+  border-top: none !important
+}

@@ -13,7 +13,7 @@ const AuthorizationPage = () => {
           <h1 className={styles.authHeader}>Авторизация</h1>
           <Input className={styles.authInputLogin} size="large" prefix={<UserOutlined />} />
           <Input.Password className={styles.authInputPassword} size="large" prefix={<LockOutlined />}/>
-          <Button className={styles.authButton} type="primary" onClick={() => navigate('/profile')}>Войти</Button>
+          <Button className={styles.authButton} type="primary" onClick={() => navigate('/main')}>Войти</Button>
         </div>
       </div>
     </>
