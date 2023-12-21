@@ -51,7 +51,7 @@ class TrainingViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(date__lte=params['date_to'])
         if 'group' in params:
             queryset = queryset.filter(group=params['group'])
-        if 'user' in params and is_authority:
+        if 'user' in params:
             user = User.objects.get(username=params['user'])
             groups = user.groups.all()
             queryset = queryset.filter(group__in=groups)
@@ -78,15 +78,14 @@ class AttendancesViewSet(viewsets.ModelViewSet):
         if is_authority:
             queryset = Attendance.objects.all()
         else:
-            groups = user.groups.all()
-            queryset = Attendance.objects.filter(group__in=groups)
+            queryset = Attendance.objects.filter(user=user)
 
         params = self.request.query_params
         if 'date_from' in params:
             queryset = queryset.filter(date__gte=params['date_from'])
         if 'date_to' in params:
             queryset = queryset.filter(date__lte=params['date_to'])
-        if 'user' in params and is_authority:
+        if 'user' in params:
             user = User.objects.get(username=params['user'])
             queryset = queryset.filter(user=user)
 
