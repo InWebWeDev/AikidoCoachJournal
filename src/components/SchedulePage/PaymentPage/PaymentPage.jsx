@@ -1,18 +1,64 @@
-import styles from './PaymentPage.module.css'
-import logo from './profile.svg'
+import ModalPaymentPage from '../ModalPaymentPage/ModalPaymentPage'
+import styles from "./PaymentPage.module.css";
+import { useState, useEffect } from "react";
+import logo from "./profile.svg";
+import axios from "axios";
 
 const PaymentPage = () => {
+  const [groups, setGroups] = useState([]);
+  const [isActiveModal, setIsActiveModal] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const fetchPosts = async () => {
+    const response = await axios.get(
+      "https://658d5b8c7c48dce947390555.mockapi.io/api/v2/groups"
+    );
+    setGroups(response.data);
+  };
+
+  const changePaymentStatus = (e) => {
+    setIsActiveModal(true);
+    // console.log('clck');
+    // console.log(e.target.closest(`${styles.userContainer}`));
+    // const nameClass = styles.profileName;
+    // const paymentClass = styles.paymentStatus;
+    // setCurrentUser({name: e.target.querySelector(nameClass), payment: e.taget.querySelector(paymentClass)});
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
     <>
+      <ModalPaymentPage isActive={isActiveModal} setModalActive={setIsActiveModal} currentUser={currentUser}/>
       <div className={styles.scheduleContainer}>
-        <div className={styles.groupContainer}>
+        {groups.map((group) => (
+          <>
+            <div className={styles.groupContainer}>
+              <div>
+                <span>{`АТ-0` + group.id}</span>
+              </div>
+              <div className={styles.userContainer} onClick={changePaymentStatus}>
+                <img src={logo} alt="Аватар профиля" />
+                <span className={styles.profileName}>Ангелина Маратова</span>
+                <span className={styles.paymentStatus}>Оплачено</span>
+              </div>
+              {group.users.map((user) => (
+                <div className={styles.groupContainer}>
+                  <img src={logo} alt="Аватар профиля" />
+                  <span className={styles.profileName}>{user.username}</span>
+                  <span className={styles.paymentStatus}>{user.status}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        ))}
+        {/* <div className={styles.groupContainer}>
           <div>
             <span>АТ-08</span>
           </div>
           <div>
-            <img src={logo} alt="Аватар профиля"/>
-            <span className={styles.profileName}>Ангелина Маратова</span>
-            <span className={styles.paymentStatus}>Оплачено</span>
+            
           </div>
           <div>
             <img src={logo} alt="Аватар профиля"/>
@@ -76,12 +122,12 @@ const PaymentPage = () => {
           </div>
           <div>
             <img src={logo} alt="Аватар профиля"/>
-            <span className={styles.profileName}>Криштиану Роналдов</span>
+            <span className={styles.profileName}>Кристина Красивова</span>
             <span className={styles.paymentStatus}>Оплачено</span>
           </div>
           <div>
             <img src={logo} alt="Аватар профиля"/>
-            <span className={styles.profileName}>Лионель Пепсев</span>
+            <span className={styles.profileName}>Лев Тугарин</span>
             <span className={styles.paymentStatus}>Оплачено</span>
           </div>
           <div>
@@ -156,12 +202,12 @@ const PaymentPage = () => {
           </div>
           <div>
             <img src={logo} alt="Аватар профиля"/>
-            <span className={styles.profileName}>Ксения Огурчикова</span>
+            <span className={styles.profileName}>Ксения Огурцова</span>
             <span className={styles.paymentStatus}>Оплачено</span>
           </div>
           <div>
             <img src={logo} alt="Аватар профиля"/>
-            <span className={styles.profileName}>Артем Помидорчиков</span>
+            <span className={styles.profileName}>Артем Артемов</span>
             <span className={styles.paymentStatus}>Оплачено</span>
           </div>
         </div>
@@ -176,7 +222,7 @@ const PaymentPage = () => {
           </div>
           <div>
             <img src={logo} alt="Аватар профиля"/>
-            <span className={styles.profileName}>Никита Позорнов</span>
+            <span className={styles.profileName}>Никита Никитин</span>
             <span className={styles.paymentStatus}>Оплачено</span>
           </div>
           <div>
@@ -229,7 +275,7 @@ const PaymentPage = () => {
             <span className={styles.profileName}>Георгий Матмехов</span>
             <span className={styles.paymentStatus}>Оплачено</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import styles from './Header.module.css'
 import logo from '../Logo.png'
-import Modal from '../ModalPage/Modal';
+import Modal from '../ModalUserPage/Modal';
 
 const Header = ({current, setCurrent}: any) => {
   const items: MenuProps['items'] = [

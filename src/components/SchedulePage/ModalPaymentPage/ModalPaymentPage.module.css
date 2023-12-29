@@ -1,0 +1,43 @@
+.modalWrapper {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalWrapperActive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  min-width: 400px;
+  padding: 42px 53px;
+  background-color: white;
+  text-align: center;
+}
+
+.modalHeader {
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+.okButton {
+  width: 153px;
+  height: 40px;
+  background-color: #00A407;
+  border: 0;
+  cursor: pointer;
+}
+
+.notokButton {
+  width: 153px;
+  height: 40px;
+  background-color: #FF000073;
+  border: 0;
+  cursor: pointer;
+}
