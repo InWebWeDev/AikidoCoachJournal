@@ -1,6 +1,6 @@
 from django.db.models import QuerySet
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from rest_framework import generics
 from rest_framework import permissions
 from . import custom_permissions
@@ -8,7 +8,13 @@ from . import custom_permissions
 from .serializers import *
 
 
-class LimitedUserViewSet(viewsets.ModelViewSet):
+class LimitedUserViewSet(
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.DestroyModelMixin
+):
     queryset = User.objects.all()
     serializer_class = LimitedUserSerializer
     lookup_field = 'username'
