@@ -11,5 +11,5 @@ router.register(r'groups', GroupViewSet, basename='Group')
 
 urlpatterns = [
     path('', include(router.urls)),
-
+    path('change-password/', change_password, name='change_password')
 ]

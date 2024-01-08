@@ -1,8 +1,9 @@
+from django.contrib.auth import update_session_auth_hash
 from django.db.models import QuerySet
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework import viewsets, mixins
-from rest_framework import generics
-from rest_framework import permissions
+from rest_framework import viewsets, mixins, status, generics, permissions
+
 from . import custom_permissions
 
 from .serializers import *
@@ -26,6 +27,22 @@ class LimitedUserViewSet(
         if self.request.user.is_superuser:
             self.serializer_class = UserSerializer
         return super(self.__class__, self).get_permissions()
+
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def change_password(request):
+    if request.method == 'POST':
+        serializer = ChangePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            if user.check_password(serializer.data.get('old_password')):
+                user.set_password(serializer.data.get('new_password'))
+                user.save()
+                update_session_auth_hash(request, user)  # To update session after password change
+                return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
+            return Response({'error': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TrainingViewSet(viewsets.ModelViewSet):
